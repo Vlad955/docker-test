@@ -1,9 +1,9 @@
-FROM alpine:3.14
+FROM ubuntu:20.04
 
-RUN mkdir -p /home/app
+COPY TestDocker.sh /
 
-COPY TestDocker.sh /home/app/TestDocker.sh
+RUN chmod +x /TestDocker.sh
 
-RUN chmod +x TestDocker.sh
+ENTRYPOINT ["/bin/bash", "/TestDocker.sh"]
 
-CMD ["./TestDocker.sh"]
+CMD ["DONE"]
