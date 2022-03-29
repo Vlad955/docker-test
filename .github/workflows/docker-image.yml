@@ -2,9 +2,7 @@ name: Docker test
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
 
@@ -17,3 +15,4 @@ jobs:
     - name: Docker build
       run: docker build -t my-app:1.0
       
+
