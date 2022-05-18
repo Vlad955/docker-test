@@ -1,9 +1,22 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04 AS codeTest
 
-COPY TestDocker.sh /
+WORKDIR /testDocker
 
-RUN chmod +x /TestDocker.sh
+COPY TestDocker.sh .
 
-ENTRYPOINT ["/bin/bash", "/TestDocker.sh"]
+RUN apt-get update && apt-get install -y curl
 
-CMD ["DONE"]
+RUN chmod +x TestDocker.sh
+
+
+FROM nginx:latest
+
+WORKDIR /root
+
+COPY --from=codeTest testDocker/TestDocker.sh .
+
+ENV PORT=80
+
+EXPOSE 80
+
+CMD ["./TestDocker.sh"]
